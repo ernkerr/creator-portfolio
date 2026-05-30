@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #f2eee1;
-  --color-bg-alt: #edeadf;
+  --color-bg: #ffffff;
+  --color-bg-alt: #fafaf7;
   --color-bg-paper: #ffffff;
-  --color-fg: #2e2e2e;
+  --color-fg: #1a1a1a;
   --color-fg-soft: #555555;
-  --color-border: #e0dccf;
+  --color-border: #eaeaea;
   --color-accent: #001aff;
   --color-accent-soft: #3b4dff;
+  --color-on-accent: #ffffff;
 
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-bebas);
+  --font-serif: var(--font-fraunces);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
@@ -21,25 +23,31 @@
 
   --text-9xl: 8rem;
   --text-9xl--line-height: 1;
+  --text-10xl: 10rem;
+  --text-10xl--line-height: 0.9;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 4rem;
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-feature-settings: "ss01", "cv11";
 }
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
 }
 
 a {
   color: inherit;
+}
+
+/* Accent rule used as section separator (above and below big headings) */
+.rule-accent {
+  border-color: var(--color-accent);
 }

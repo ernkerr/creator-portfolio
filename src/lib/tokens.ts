@@ -1,13 +1,14 @@
 export const tokens = {
   color: {
-    bg: "#F2EEE1",
-    bgAlt: "#EDEADF",
+    bg: "#FFFFFF",
+    bgAlt: "#FAFAF7",
     bgPaper: "#FFFFFF",
-    fg: "#2E2E2E",
+    fg: "#1A1A1A",
     fgSoft: "#555555",
-    border: "#E0DCCF",
+    border: "#EAEAEA",
     accent: "#001AFF",
     accentSoft: "#3B4DFF",
+    onAccent: "#FFFFFF",
   },
   radius: {
     sm: "0.25rem",

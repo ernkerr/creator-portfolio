@@ -2,59 +2,46 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 export function Header() {
+  const items = [
+    site.nav[0],
+    site.nav[1],
+    site.nav[3],
+    site.nav[2],
+    ...(site.featured
+      ? [{ label: site.featured.label, href: site.featured.url, external: true }]
+      : []),
+  ];
+
   return (
-    <header className="bg-bg/85 border-border/60 sticky top-0 z-50 w-full border-b backdrop-blur-md">
+    <header className="bg-accent text-on-accent sticky top-0 z-50 w-full">
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6"
+        className="mx-auto flex h-12 max-w-6xl items-center justify-center px-4 sm:h-14"
       >
-        <Link
-          href="#home"
-          className="text-accent font-display text-xl tracking-tight uppercase"
-        >
-          {site.name.split(" ")[0]}
-          <span aria-hidden="true" className="ml-1">
-            ◦
-          </span>
-        </Link>
-
-        <ul className="hidden items-center gap-7 text-sm sm:flex">
-          {site.nav.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className="text-accent decoration-accent/40 underline-offset-4 transition hover:underline"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-          {site.featured && (
-            <li>
-              <a
-                href={site.featured.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent decoration-accent/40 underline-offset-4 transition hover:underline"
-              >
-                {site.featured.label}{" "}
-                <span aria-hidden="true" className="text-xs">
-                  ↗
-                </span>
-              </a>
-            </li>
+        <ul className="flex items-center gap-6 text-sm sm:gap-12 sm:text-base">
+          {items.map((item) =>
+            "external" in item ? (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 transition hover:no-underline"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ) : (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="underline underline-offset-4 transition hover:no-underline"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ),
           )}
-        </ul>
-
-        {/* Mobile: condensed inline links */}
-        <ul className="flex items-center gap-4 text-xs sm:hidden">
-          {site.nav.slice(1).map((item) => (
-            <li key={item.href}>
-              <Link href={item.href} className="text-accent underline-offset-4">
-                {item.label}
-              </Link>
-            </li>
-          ))}
         </ul>
       </nav>
     </header>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue, Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { site } from "@/lib/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -7,6 +7,13 @@ import { JsonLd } from "@/components/JsonLd";
 import { AsciiBoot } from "@/components/AsciiBoot";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
+
+const bebas = Bebas_Neue({
+  variable: "--font-bebas",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -50,7 +57,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F2EEE1",
+  themeColor: "#001AFF",
   width: "device-width",
   initialScale: 1,
 };
@@ -61,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${bebas.variable} ${fraunces.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="bg-bg text-fg flex min-h-full flex-col">
         <Header />
