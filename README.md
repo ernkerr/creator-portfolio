@@ -33,27 +33,40 @@ Open <http://localhost:3000>.
 
 ## Adding real videos (Cloudflare R2)
 
-Brand cards autoplay muted on hover (desktop) and on viewport entry (mobile). MP4s are too heavy for the repo, so the template uses **Cloudflare R2** for storage — public bucket, zero egress fees, S3-compatible API.
+Brand cards autoplay muted on hover (desktop) and on viewport entry (mobile). MP4s are too heavy for the repo, so the template uses **Cloudflare R2** for storage — public bucket, zero egress fees.
 
-### One-time R2 setup
+### One-time R2 setup (CLI)
 
-1. **Make a Cloudflare account** at <https://dash.cloudflare.com> and enable R2 (`Workers & Pages → R2`).
-2. **Create a bucket**, e.g. `creator-portfolio`.
-3. **Enable public access** under `Settings → Public access → Connect a custom domain` (recommended) OR `Allow access via r2.dev`.
-4. **Note your public base URL**, e.g. `https://media.your-domain.com` or `https://pub-<hash>.r2.dev`.
+```bash
+# Log in once (opens Cloudflare in your browser)
+pnpm dlx wrangler@latest login
+
+# Create the bucket
+pnpm dlx wrangler@latest r2 bucket create creator-portfolio
+
+# Enable the public r2.dev URL
+pnpm dlx wrangler@latest r2 bucket dev-url enable creator-portfolio
+# → prints: Public access enabled at 'https://pub-<hash>.r2.dev'
+```
+
+Copy that `https://pub-<hash>.r2.dev` into your `.env.local`:
+
+```bash
+NEXT_PUBLIC_R2_BASE_URL=https://pub-<hash>.r2.dev
+```
+
+(For production with your own domain, attach a custom domain in the Cloudflare dashboard and use that URL instead — the `r2.dev` URL is rate-limited and not recommended for production traffic.)
 
 ### Upload videos
 
-Easiest: drag-and-drop in the Cloudflare dashboard.
-
-CLI (via [wrangler](https://developers.cloudflare.com/workers/wrangler/install-and-update/)):
-
 ```bash
-wrangler r2 object put creator-portfolio/brand-1.mp4 --file ./brand-1.mp4
-wrangler r2 object put creator-portfolio/brand-1.jpg --file ./brand-1.jpg
+pnpm dlx wrangler@latest r2 object put creator-portfolio/brand-1.mp4 --file ./brand-1.mp4
+pnpm dlx wrangler@latest r2 object put creator-portfolio/brand-1.jpg --file ./brand-1.jpg
 ```
 
 ### Wire them into `brands.ts`
+
+Use the `r2()` helper (already exported from `brands.ts`) — it reads `NEXT_PUBLIC_R2_BASE_URL` and prepends the filename:
 
 ```ts
 export const brands: readonly Brand[] = [
@@ -61,11 +74,12 @@ export const brands: readonly Brand[] = [
     id: 1,
     name: "Acme",
     label: "Web build",
-    video: "https://media.your-domain.com/brand-1.mp4",
-    poster: "https://media.your-domain.com/brand-1.jpg",
-    href: "https://acme.com",          // optional click-through
+    video: r2("brand-1.mp4"),
+    poster: r2("brand-1.jpg"),
+    href: "https://acme.com",      // optional click-through
   },
-  // … leave a brand without video/poster to show the gradient placeholder
+  // Brands without video/poster show the gradient placeholder
+  { id: 2, name: "Brand #2", label: "Landing page" },
 ];
 ```
 
