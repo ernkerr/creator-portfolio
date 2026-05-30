@@ -32,6 +32,7 @@ export const env = {
   INSTAGRAM: optional(process.env.NEXT_PUBLIC_INSTAGRAM),
   TIKTOK: optional(process.env.NEXT_PUBLIC_TIKTOK),
   YOUTUBE: optional(process.env.NEXT_PUBLIC_YOUTUBE),
+  BLUESKY: optional(process.env.NEXT_PUBLIC_BLUESKY),
 
   R2_BASE_URL: optional(process.env.NEXT_PUBLIC_R2_BASE_URL).replace(/\/$/, ""),
   GA_ID: optional(process.env.NEXT_PUBLIC_GA_ID),

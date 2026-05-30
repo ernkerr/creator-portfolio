@@ -1,12 +1,13 @@
 import { env } from "./env";
 
 export type SocialKey =
-  | "github"
-  | "twitter"
-  | "linkedin"
   | "instagram"
   | "tiktok"
-  | "youtube";
+  | "youtube"
+  | "twitter"
+  | "bluesky"
+  | "linkedin"
+  | "github";
 
 export const site = {
   name: env.BRAND_NAME,
@@ -26,12 +27,13 @@ export const site = {
     { label: "Contact", href: "#contact" },
   ],
   socials: {
-    github: env.GITHUB ? `https://github.com/${env.GITHUB}` : "",
-    twitter: env.TWITTER ? `https://twitter.com/${env.TWITTER}` : "",
-    linkedin: env.LINKEDIN ? `https://linkedin.com/in/${env.LINKEDIN}` : "",
     instagram: env.INSTAGRAM ? `https://instagram.com/${env.INSTAGRAM}` : "",
     tiktok: env.TIKTOK ? `https://tiktok.com/@${env.TIKTOK}` : "",
     youtube: env.YOUTUBE ? `https://youtube.com/@${env.YOUTUBE}` : "",
+    twitter: env.TWITTER ? `https://x.com/${env.TWITTER}` : "",
+    bluesky: env.BLUESKY ? `https://bsky.app/profile/${env.BLUESKY}` : "",
+    linkedin: env.LINKEDIN ? `https://linkedin.com/in/${env.LINKEDIN}` : "",
+    github: env.GITHUB ? `https://github.com/${env.GITHUB}` : "",
   } satisfies Record<SocialKey, string>,
 } as const;
 

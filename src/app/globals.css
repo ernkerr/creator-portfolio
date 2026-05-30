@@ -11,7 +11,7 @@
   --color-accent-soft: #3b4dff;
   --color-on-accent: #ffffff;
 
-  --font-display: var(--font-bebas);
+  --font-display: var(--font-anton);
   --font-serif: var(--font-fraunces);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -21,10 +21,10 @@
   --radius-lg: 1rem;
   --radius-full: 9999px;
 
-  --text-9xl: 8rem;
-  --text-9xl--line-height: 1;
-  --text-10xl: 10rem;
-  --text-10xl--line-height: 0.9;
+  --text-9xl: 9rem;
+  --text-9xl--line-height: 0.9;
+  --text-10xl: 12rem;
+  --text-10xl--line-height: 0.85;
 }
 
 html {
@@ -43,8 +43,10 @@ body {
   color: var(--color-on-accent);
 }
 
-a {
-  color: inherit;
+@layer base {
+  a {
+    color: inherit;
+  }
 }
 
 /* Accent rule used as section separator (above and below big headings) */

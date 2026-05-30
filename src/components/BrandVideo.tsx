@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type Props = {
   src: string;
@@ -10,7 +10,6 @@ type Props = {
 
 export function BrandVideo({ src, poster, label }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
 
   const play = () => {
     const el = ref.current;
@@ -24,7 +23,6 @@ export function BrandVideo({ src, poster, label }: Props) {
     const el = ref.current;
     if (!el) return;
     el.pause();
-    el.currentTime = 0;
   };
 
   // Mobile / touch: autoplay when ≥50% of card is in view, pause when it leaves.
@@ -54,7 +52,7 @@ export function BrandVideo({ src, poster, label }: Props) {
 
   return (
     <div
-      className="group/video relative h-full w-full"
+      className="relative h-full w-full"
       onMouseEnter={play}
       onMouseLeave={pause}
     >
@@ -67,17 +65,8 @@ export function BrandVideo({ src, poster, label }: Props) {
         playsInline
         preload="metadata"
         aria-label={label}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
         className="h-full w-full object-cover"
       />
-      {!playing && (
-        <div className="bg-bg/95 pointer-events-none absolute top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full shadow-sm">
-          <span className="text-accent font-display text-sm tracking-wider">
-            ▶
-          </span>
-        </div>
-      )}
     </div>
   );
 }

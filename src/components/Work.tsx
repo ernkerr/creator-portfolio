@@ -8,7 +8,7 @@ export function Work() {
     <section id="work" className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
       <FadeIn>
         <div className="border-accent mb-8 border-b pb-3">
-          <h2 className="text-accent font-display text-4xl tracking-tight uppercase sm:text-6xl">
+          <h2 className="text-accent font-display text-6xl tracking-[-0.02em] uppercase sm:text-8xl">
             My Work
           </h2>
         </div>

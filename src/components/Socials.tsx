@@ -2,12 +2,13 @@ import { enabledSocials, type SocialKey } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 const labels: Record<SocialKey, string> = {
-  github: "GitHub",
-  twitter: "Twitter / X",
-  linkedin: "LinkedIn",
   instagram: "Instagram",
   tiktok: "TikTok",
   youtube: "YouTube",
+  twitter: "X",
+  bluesky: "Bluesky",
+  linkedin: "LinkedIn",
+  github: "GitHub",
 };
 
 const paths: Record<SocialKey, React.ReactNode> = {
@@ -28,6 +29,9 @@ const paths: Record<SocialKey, React.ReactNode> = {
   ),
   youtube: (
     <path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.13C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.37.57A3.02 3.02 0 0 0 .5 6.2C0 8.07 0 12 0 12s0 3.93.5 5.8a3.02 3.02 0 0 0 2.13 2.13C4.5 20.5 12 20.5 12 20.5s7.5 0 9.37-.57a3.02 3.02 0 0 0 2.13-2.13C24 15.93 24 12 24 12s0-3.93-.5-5.8ZM9.75 15.5v-7l6.25 3.5-6.25 3.5Z" />
+  ),
+  bluesky: (
+    <path d="M5.418 4.197c2.91 2.18 5.778 6.508 6.582 8.815.804-2.307 3.672-6.635 6.582-8.815 1.984-1.49 5.418-2.61 5.418 1.314 0 .779-.443 6.546-.703 7.502-.903 3.323-4.293 4.157-7.348 3.62 5.218.892 6.553 3.83 3.68 6.768-5.456 5.582-7.844-1.398-8.456-3.193-.112-.328-.165-.482-.166-.36-.001-.122-.054.032-.166.36-.611 1.795-2.999 8.775-8.455 3.193-2.872-2.939-1.538-5.876 3.68-6.768-3.055.537-6.444-.297-7.347-3.62-.26-.956-.703-6.723-.703-7.502 0-3.923 3.434-2.804 5.418-1.314z" />
   ),
 };
 

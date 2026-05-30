@@ -22,13 +22,13 @@ export function Hero() {
         {/* Name + tagline + contact */}
         <div className="flex flex-col">
           <FadeIn delay={0.05}>
-            <h1 className="text-accent font-display text-[clamp(3.5rem,11vw,9rem)] leading-[0.85] tracking-tight uppercase">
+            <h1 className="text-accent font-display text-right text-[clamp(4.5rem,14vw,12rem)] leading-[0.82] tracking-[-0.02em] uppercase">
               {site.name}
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.15}>
-            <p className="text-accent font-serif mt-4 text-right text-2xl italic sm:text-4xl">
+            <p className="text-accent font-serif mt-4 text-right text-lg italic sm:text-2xl">
               {site.tagline}
             </p>
           </FadeIn>

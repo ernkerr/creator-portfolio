@@ -1,25 +1,36 @@
-import type { Brand } from "@/lib/brands";
+import Image from "next/image";
+import {
+  brandAnchor,
+  brandLogoLarge,
+  brandPoster,
+  brandVideo,
+  type Brand,
+} from "@/lib/brands";
 import { BrandVideo } from "./BrandVideo";
 
 type Props = { brand: Brand };
 
 export function BrandCard({ brand }: Props) {
-  const inner = brand.video ? (
-    <BrandVideo src={brand.video} poster={brand.poster} label={brand.name} />
+  const inner = brand.hasVideo ? (
+    <BrandVideo
+      src={brandVideo(brand.slug)}
+      poster={brandPoster(brand.slug)}
+      label={brand.name}
+    />
   ) : (
     <PlaceholderTile id={brand.id} />
   );
 
   return (
-    <article className="group flex flex-col">
-      <div className="relative aspect-[3/4] w-full overflow-hidden">
+    <article id={brandAnchor(brand.slug)} className="group mx-auto flex w-full max-w-[260px] scroll-mt-20 flex-col">
+      <div className="relative aspect-[9/16] w-full overflow-hidden">
         {brand.href ? (
           <a
             href={brand.href}
             target="_blank"
             rel="noopener noreferrer"
             className="block h-full w-full"
-            aria-label={`${brand.name} — ${brand.label}`}
+            aria-label={brand.name}
           >
             {inner}
           </a>
@@ -27,13 +38,14 @@ export function BrandCard({ brand }: Props) {
           inner
         )}
       </div>
-      <div className="border-border bg-bg-alt flex items-center justify-between border-t px-3 py-2">
-        <span className="text-fg font-display text-base tracking-wider uppercase">
-          {brand.name}
-        </span>
-        <span className="text-fg-soft font-mono text-[0.65rem] tracking-widest uppercase">
-          {brand.label}
-        </span>
+      <div className="relative aspect-[1200/630] w-full">
+        <Image
+          src={brandLogoLarge(brand.slug)}
+          alt={`${brand.name} logo`}
+          fill
+          sizes="(min-width: 768px) 400px, 80vw"
+          className="object-contain"
+        />
       </div>
     </article>
   );
