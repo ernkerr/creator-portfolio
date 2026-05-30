@@ -1,38 +1,49 @@
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 
 export function Header() {
-  return (
-    <header className="mx-auto flex max-w-6xl items-center justify-between px-4 pt-6 sm:pt-8">
-      <Link
-        href="#home"
-        aria-label={`${site.name} — home`}
-        className="block transition-opacity hover:opacity-80"
-      >
-        <Image
-          src="/logo.webp"
-          alt={site.name}
-          width={420}
-          height={210}
-          priority
-          className="h-auto w-44 sm:w-56 md:w-64"
-        />
-      </Link>
+  const items = [
+    site.nav[0],
+    site.nav[1],
+    site.nav[3],
+    site.nav[2],
+    ...(site.featured
+      ? [{ label: site.featured.label, href: site.featured.url, external: true }]
+      : []),
+  ];
 
-      {site.featured && (
-        <a
-          href={site.featured.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-accent decoration-accent/40 font-mono text-xs tracking-widest uppercase underline-offset-4 hover:underline sm:text-sm"
-        >
-          {site.featured.label}{" "}
-          <span aria-hidden="true" className="text-xs">
-            ↗
-          </span>
-        </a>
-      )}
+  return (
+    <header className="bg-accent text-on-accent sticky top-0 z-50 w-full">
+      <nav
+        aria-label="Primary"
+        className="mx-auto flex h-12 max-w-6xl items-center justify-center px-4 sm:h-14"
+      >
+        <ul className="flex items-center gap-6 text-sm sm:gap-12 sm:text-base">
+          {items.map((item) =>
+            "external" in item ? (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 transition hover:no-underline"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ) : (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="underline underline-offset-4 transition hover:no-underline"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ),
+          )}
+        </ul>
+      </nav>
     </header>
   );
 }
