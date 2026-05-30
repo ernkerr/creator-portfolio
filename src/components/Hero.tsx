@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { site } from "@/lib/site";
 import { Socials } from "./Socials";
 import { EmailPill } from "./EmailPill";
@@ -5,18 +6,18 @@ import { FadeIn } from "./motion/FadeIn";
 
 export function Hero() {
   return (
-    <section id="home" className="mx-auto max-w-6xl px-4 py-12 sm:py-20">
-      <div className="grid items-center gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-        {/* Photo placeholder — cut-out style, no rectangular frame */}
-        <FadeIn>
-          <div
-            className="from-accent/15 via-accent/5 to-bg relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden bg-gradient-to-br md:max-w-none"
-            aria-hidden="true"
-          >
-            <div className="text-accent/20 font-display absolute inset-0 flex items-center justify-center text-[12rem]">
-              {site.name.slice(0, 1)}
-            </div>
-          </div>
+    <section id="home" className="mx-auto max-w-6xl px-4 pt-4 pb-10 sm:pt-6 sm:pb-14">
+      <div className="grid items-end gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-10">
+        {/* Cut-out photo — fills its column, bottom-anchored next to the name */}
+        <FadeIn className="relative">
+          <Image
+            src="/erin.png"
+            alt={site.name}
+            width={900}
+            height={1200}
+            priority
+            className="mx-auto block h-auto w-full max-w-xs md:mx-0 md:max-w-none"
+          />
         </FadeIn>
 
         {/* Name + tagline + contact */}
@@ -34,7 +35,7 @@ export function Hero() {
           </FadeIn>
 
           <FadeIn delay={0.25}>
-            <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-end sm:gap-8">
+            <div className="mt-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-end sm:gap-8">
               <EmailPill />
               <Socials />
             </div>
