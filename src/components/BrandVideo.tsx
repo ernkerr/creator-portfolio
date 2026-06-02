@@ -22,6 +22,7 @@ export function BrandVideo({ src, label }: Props) {
     const el = ref.current;
     if (!el) return;
     el.pause();
+    el.currentTime = 0;
   };
 
   // Mobile / touch: autoplay when ≥50% of card is in view, pause when it leaves.
