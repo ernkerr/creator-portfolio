@@ -1,42 +1,43 @@
 import Image from "next/image";
 import {
-  brandAnchor,
   brandLogoLarge,
-  brandPoster,
-  brandVideo,
+  brandVideoUrl,
+  videoAnchor,
   type Brand,
+  type BrandVideo as BrandVideoEntry,
 } from "@/lib/brands";
 import { BrandVideo } from "./BrandVideo";
 
-type Props = { brand: Brand };
+type Props = { brand: Brand; video: BrandVideoEntry };
 
-export function BrandCard({ brand }: Props) {
-  const inner = brand.hasVideo ? (
-    <BrandVideo
-      src={brandVideo(brand.slug)}
-      poster={brandPoster(brand.slug)}
-      label={brand.name}
-    />
-  ) : (
-    <PlaceholderTile id={brand.id} />
-  );
+export function BrandCard({ brand, video }: Props) {
+  const src = brandVideoUrl(brand.slug, video.id);
+  const label = `${brand.name} — ${video.label}`;
+
+  const inner = <BrandVideo src={src} label={label} />;
 
   return (
-    <article id={brandAnchor(brand.slug)} className="group mx-auto flex w-full max-w-[260px] scroll-mt-20 flex-col">
-      <div className="relative aspect-[9/16] w-full overflow-hidden">
-        {brand.href ? (
+    <article
+      id={videoAnchor(brand.slug, video.id)}
+      className="group mx-auto flex w-full max-w-[260px] scroll-mt-20 flex-col"
+    >
+      <div className="bg-bg-alt relative aspect-[9/16] w-full overflow-hidden">
+        {video.href ? (
           <a
-            href={brand.href}
+            href={video.href}
             target="_blank"
             rel="noopener noreferrer"
             className="block h-full w-full"
-            aria-label={brand.name}
+            aria-label={label}
           >
             {inner}
           </a>
         ) : (
           inner
         )}
+        <span className="bg-bg/85 text-accent absolute top-3 left-3 rounded-full px-2.5 py-1 text-xs font-medium tracking-wide uppercase">
+          {video.label}
+        </span>
       </div>
       <div className="relative aspect-[1200/630] w-full">
         <Image
@@ -48,23 +49,5 @@ export function BrandCard({ brand }: Props) {
         />
       </div>
     </article>
-  );
-}
-
-function PlaceholderTile({ id }: { id: number }) {
-  return (
-    <div
-      className="from-accent/15 via-accent/5 to-bg-alt relative h-full w-full overflow-hidden bg-gradient-to-br"
-      aria-hidden="true"
-    >
-      <div className="text-accent/30 font-display absolute inset-0 flex items-center justify-center text-7xl tracking-tight">
-        #{id}
-      </div>
-      <div className="bg-bg/95 absolute top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full shadow-sm">
-        <span className="text-accent font-display text-sm tracking-wider">
-          ▶
-        </span>
-      </div>
-    </div>
   );
 }

@@ -4,18 +4,17 @@ import { useEffect, useRef } from "react";
 
 type Props = {
   src: string;
-  poster?: string;
   label: string;
 };
 
-export function BrandVideo({ src, poster, label }: Props) {
+export function BrandVideo({ src, label }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
 
   const play = () => {
     const el = ref.current;
     if (!el) return;
     el.play().catch(() => {
-      /* autoplay blocked — leave poster up */
+      /* autoplay blocked — leave first frame up */
     });
   };
 
@@ -30,8 +29,6 @@ export function BrandVideo({ src, poster, label }: Props) {
     const el = ref.current;
     if (!el) return;
 
-    // Only enable IntersectionObserver autoplay on touch devices.
-    // Desktop relies on hover instead.
     const isTouch =
       typeof window !== "undefined" &&
       window.matchMedia("(hover: none)").matches;
@@ -52,14 +49,13 @@ export function BrandVideo({ src, poster, label }: Props) {
 
   return (
     <div
-      className="relative h-full w-full"
+      className="relative h-full w-full bg-black"
       onMouseEnter={play}
       onMouseLeave={pause}
     >
       <video
         ref={ref}
         src={src}
-        poster={poster}
         muted
         loop
         playsInline
