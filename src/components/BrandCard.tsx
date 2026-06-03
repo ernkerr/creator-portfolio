@@ -14,7 +14,13 @@ export function BrandCard({ brand, video }: Props) {
   const src = brandVideoUrl(brand.slug, video.id);
   const label = `${brand.name} — ${video.label}`;
 
-  const inner = <BrandVideo src={src} label={label} />;
+  const inner = (
+    <BrandVideo
+      src={src}
+      label={label}
+      videoKey={videoAnchor(brand.slug, video.id)}
+    />
+  );
 
   return (
     <article
