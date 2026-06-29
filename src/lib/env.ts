@@ -36,4 +36,9 @@ export const env = {
 
   R2_BASE_URL: optional(process.env.NEXT_PUBLIC_R2_BASE_URL).replace(/\/$/, ""),
   GA_ID: optional(process.env.NEXT_PUBLIC_GA_ID),
+
+  // Waitlist form target — a Google Apps Script Web App URL that appends
+  // submissions to a Google Sheet. Leave blank to no-op (form still shows
+  // success in dev). See .env.example for one-time setup.
+  WAITLIST_ENDPOINT: optional(process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT),
 } as const;

@@ -20,11 +20,14 @@ export const site = {
     env.FEATURED_LABEL && env.FEATURED_URL
       ? { label: env.FEATURED_LABEL, url: env.FEATURED_URL }
       : null,
+  // Root-absolute anchors (`/#work`) so the nav works from any route, not just
+  // the home page (e.g. from /tools). Tools is a standalone route.
   nav: [
-    { label: "Home", href: "#home" },
-    { label: "My Work", href: "#work" },
-    { label: "About Me", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "/#home" },
+    { label: "My Work", href: "/#work" },
+    { label: "About Me", href: "/#about" },
+    { label: "Contact", href: "/#contact" },
+    { label: "Tools", href: "/tools" },
   ],
   socials: {
     instagram: env.INSTAGRAM ? `https://instagram.com/${env.INSTAGRAM}` : "",
