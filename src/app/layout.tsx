@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { site } from "@/lib/site";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { JsonLd } from "@/components/JsonLd";
-import { AsciiBoot } from "@/components/AsciiBoot";
 import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
@@ -71,11 +67,7 @@ export default function RootLayout({
       className={`${anton.variable} ${fraunces.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="bg-bg text-fg flex min-h-full flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <JsonLd />
-        <AsciiBoot />
+        {children}
         <Analytics />
       </body>
     </html>
