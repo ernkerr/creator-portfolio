@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
       { source: "/admin/:path*", destination: "https://brand-manager-web.vercel.app/admin/:path*" },
     ];
   },
+  // Crossposter is a full app with its own login; redirect (not rewrite) so
+  // OAuth callbacks and session cookies live on its own host.
+  async redirects() {
+    return [
+      { source: "/crossposter", destination: "https://crossposter-nine.vercel.app", permanent: false },
+      { source: "/crossposter/:path*", destination: "https://crossposter-nine.vercel.app/:path*", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;
