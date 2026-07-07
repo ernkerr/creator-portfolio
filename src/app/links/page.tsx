@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { site } from "@/lib/site";
 import { env } from "@/lib/env";
 import {
-  LINKS_LAYOUT,
-  activeLinks,
+  SECTIONS,
   featuredLinks,
-  standardLinks,
+  linksFor,
   hasAffiliateLinks,
   type BioLink,
 } from "@/lib/links";
@@ -16,13 +14,13 @@ import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
   title: "Links",
-  description: `Links from ${site.name} — picks, projects, and where to find me.`,
+  description: `Links from ${site.name} — tools, picks, and where to find me.`,
   alternates: { canonical: "/links" },
   openGraph: {
     type: "website",
     url: `${site.url}/links`,
     title: `Links — ${site.name}`,
-    description: `Links from ${site.name} — picks, projects, and where to find me.`,
+    description: `Links from ${site.name} — tools, picks, and where to find me.`,
     siteName: site.name,
   },
 };
@@ -40,10 +38,15 @@ function LinkList({ items }: { items: BioLink[] }) {
   );
 }
 
-export default function LinksPage() {
-  const affiliatePicks = standardLinks.filter((l) => l.category === "affiliate");
-  const projects = standardLinks.filter((l) => l.category === "project");
+function PlaceholderButton({ label }: { label: string }) {
+  return (
+    <div className="border-border text-fg-soft flex w-full items-center justify-center rounded-full border-2 border-dashed px-6 py-4 font-medium">
+      {label}
+    </div>
+  );
+}
 
+export default function LinksPage() {
   return (
     <main className="bg-bg text-fg flex min-h-dvh w-full justify-center px-5 py-12 sm:py-16">
       <div className="flex w-full max-w-md flex-col items-center">
@@ -80,87 +83,57 @@ export default function LinksPage() {
           </FadeIn>
         ) : null}
 
-        <FadeIn delay={0.15}>
-          <p className="text-fg-soft font-serif mt-3 text-center text-lg italic">
-            {site.tagline}
-          </p>
+        {/* ── Socials (right under the profile) ───────────────────────── */}
+        <FadeIn delay={0.15} className="mt-5">
+          <Socials size={24} />
         </FadeIn>
 
-        {/* ── Work with me (primary CTA) ──────────────────────────────── */}
-        <FadeIn delay={0.2} className="mt-8 w-full">
+        {/* ── Pinned / featured links ─────────────────────────────────── */}
+        {featuredLinks.length > 0 ? (
+          <FadeIn delay={0.2} className="mt-8 w-full">
+            <LinkList items={featuredLinks} />
+          </FadeIn>
+        ) : null}
+
+        {/* ── Sections: Tools → Links → Affiliate Links → Portfolio ───── */}
+        {SECTIONS.map((section, i) => {
+          const items = linksFor(section.category);
+          if (items.length === 0 && !section.placeholder) return null;
+
+          return (
+            <FadeIn
+              key={section.category}
+              delay={0.25 + i * 0.05}
+              className="mt-10 w-full"
+            >
+              <section className="w-full">
+                <h2 className="text-fg font-display mb-3 text-center text-sm tracking-[0.2em] uppercase">
+                  {section.heading}
+                </h2>
+                {section.category === "affiliate" && hasAffiliateLinks ? (
+                  <p className="text-fg-soft mb-4 text-center text-xs">
+                    Some links are affiliate links — I may earn a commission at
+                    no cost to you.
+                  </p>
+                ) : null}
+                {items.length > 0 ? (
+                  <LinkList items={items} />
+                ) : (
+                  <PlaceholderButton label={section.placeholder!} />
+                )}
+              </section>
+            </FadeIn>
+          );
+        })}
+
+        {/* ── Work with me ────────────────────────────────────────────── */}
+        <FadeIn delay={0.5} className="mt-12 w-full">
           <a
             href={`mailto:${site.email}`}
             className="bg-accent text-on-accent flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium transition hover:opacity-90"
           >
             Work with me
           </a>
-        </FadeIn>
-
-        {/* ── Pinned / featured links ─────────────────────────────────── */}
-        {featuredLinks.length > 0 ? (
-          <FadeIn delay={0.25} className="mt-3 w-full">
-            <LinkList items={featuredLinks} />
-          </FadeIn>
-        ) : null}
-
-        {/* ── Links ───────────────────────────────────────────────────── */}
-        {standardLinks.length > 0 ? (
-          <FadeIn delay={0.3} className="mt-10 w-full">
-            <div className="flex w-full flex-col items-center">
-              {hasAffiliateLinks ? (
-                <p className="text-fg-soft mb-4 text-center text-xs">
-                  Some links are affiliate links — I may earn a commission at no
-                  cost to you.
-                </p>
-              ) : null}
-
-              {LINKS_LAYOUT === "grouped" ? (
-                <div className="flex w-full flex-col gap-8">
-                  {affiliatePicks.length > 0 ? (
-                    <section className="w-full">
-                      <h2 className="text-fg font-display mb-3 text-center text-sm tracking-[0.2em] uppercase">
-                        My Picks
-                      </h2>
-                      <LinkList items={affiliatePicks} />
-                    </section>
-                  ) : null}
-                  {projects.length > 0 ? (
-                    <section className="w-full">
-                      <h2 className="text-fg font-display mb-3 text-center text-sm tracking-[0.2em] uppercase">
-                        Projects
-                      </h2>
-                      <LinkList items={projects} />
-                    </section>
-                  ) : null}
-                </div>
-              ) : (
-                <section className="w-full">
-                  <h2 className="text-fg font-display mb-3 text-center text-sm tracking-[0.2em] uppercase">
-                    Links
-                  </h2>
-                  <LinkList items={standardLinks} />
-                </section>
-              )}
-            </div>
-          </FadeIn>
-        ) : null}
-
-        {/* ── Socials ─────────────────────────────────────────────────── */}
-        <FadeIn delay={0.35} className="mt-12 flex w-full flex-col items-center">
-          <h2 className="text-fg font-display mb-4 text-center text-sm tracking-[0.2em] uppercase">
-            Socials
-          </h2>
-          <Socials size={26} />
-        </FadeIn>
-
-        {/* ── Back to portfolio ───────────────────────────────────────── */}
-        <FadeIn delay={0.4} className="mt-12">
-          <Link
-            href="/"
-            className="text-fg-soft hover:text-accent font-mono text-xs tracking-wider uppercase transition"
-          >
-            View full portfolio →
-          </Link>
         </FadeIn>
       </div>
     </main>
