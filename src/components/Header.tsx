@@ -3,11 +3,7 @@ import { site } from "@/lib/site";
 
 export function Header() {
   const items = [
-    site.nav[0], // Home
-    site.nav[1], // My Work
-    site.nav[4], // Tools
-    site.nav[3], // Contact
-    site.nav[2], // About Me
+    ...site.nav,
     ...(site.featured
       ? [{ label: site.featured.label, href: site.featured.url, external: true }]
       : []),
