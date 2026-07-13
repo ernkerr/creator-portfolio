@@ -1,5 +1,6 @@
 import type { BioLink } from "@/lib/links";
 import { cn } from "@/lib/cn";
+import { CopyCodeChip } from "./CopyCodeChip";
 
 // One full-width button in the link-in-bio stack. Mirrors the EmailPill look
 // (rounded-full, accent border, fills accent on hover) so it feels native.
@@ -39,7 +40,9 @@ export function LinkButton({ link }: { link: BioLink }) {
           ) : null}
         </span>
 
-        {isAffiliate ? (
+        {link.code ? (
+          <CopyCodeChip code={link.code} featured={link.featured} />
+        ) : isAffiliate ? (
           <span
             className={cn(
               "shrink-0 rounded-full border px-2 py-0.5 font-mono text-[0.625rem] tracking-wider uppercase",

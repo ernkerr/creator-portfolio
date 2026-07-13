@@ -8,15 +8,25 @@
 //     url: "https://...",
 //     category: "tool" | "link" | "affiliate" | "portfolio",
 //     note: "optional one-liner under the title",
+//     code: "ERIN10",    // optional — tap-to-copy discount code chip
 //     featured: true,    // optional — pins it above all sections
 //     active: false }    // optional — hides it without deleting
 //
-// Sections render in this order: Tools → Links → Affiliate Links → Portfolio.
-// An empty Links or Affiliate Links section shows a "coming soon" placeholder.
+// Sections render in this order: Tools → Links → Discount Codes → Portfolio.
+// An empty Links or Discount Codes section shows a "coming soon" placeholder.
 //
-//   • category: "affiliate" → shows an "affiliate" tag, adds the FTC
+//   • category: "affiliate" → renders in "Discount Codes", adds the FTC
 //        disclosure line to the section, and uses rel="sponsored nofollow".
+//        With `code`, the button shows a chip that copies the code on tap;
+//        without one it shows a small "affiliate" tag instead.
 //   • everything else renders clean.
+//
+// Example discount-code entry:
+//   { title: "Autonomous standing desks",
+//     url: "https://autonomous.ai/?ref=...",
+//     category: "affiliate",
+//     note: "10% off with my code",
+//     code: "ERIN10" }
 //
 // Or just tell Claude: "add my ring light affiliate link https://amzn.to/xyz"
 // ───────────────────────────────────────────────────────────────────────────
@@ -28,6 +38,8 @@ export type BioLink = {
   url: string;
   category: LinkCategory;
   note?: string;
+  /** Discount code shown as a tap-to-copy chip on the button. */
+  code?: string;
   featured?: boolean;
   active?: boolean;
 };
@@ -49,7 +61,7 @@ export const links: BioLink[] = [
   // ── Links ──────────────────────────────────────────────────────────────
   // (none yet — page shows a placeholder until you add one)
 
-  // ── Affiliate links ────────────────────────────────────────────────────
+  // ── Discount codes (affiliate) ─────────────────────────────────────────
   // (none yet — page shows a placeholder until you add one)
 
   // ── Portfolio ──────────────────────────────────────────────────────────
@@ -78,7 +90,7 @@ export const SECTIONS: {
   { category: "link", heading: "Links", placeholder: "Coming soon" },
   {
     category: "affiliate",
-    heading: "Affiliate Links",
+    heading: "Discount Codes",
     placeholder: "Coming soon",
   },
   { category: "portfolio", heading: "Portfolio" },
