@@ -1,0 +1,25 @@
+[
+  {
+    "title": "Ascii-cam.com",
+    "url": "https://ascii-cam.com",
+    "category": "tool"
+  },
+  {
+    "title": "View my apps on the App Store",
+    "url": "https://apps.apple.com/us/developer/erin-kerr/id1817020747",
+    "category": "tool",
+    "note": "Erin Kerr on the App Store"
+  },
+  {
+    "title": "erinkerr.me",
+    "url": "https://erinkerr.me",
+    "category": "portfolio",
+    "note": "Portfolio"
+  },
+  {
+    "title": "cybergoose.org",
+    "url": "https://cybergoose.org",
+    "category": "portfolio",
+    "note": "Studio"
+  }
+]

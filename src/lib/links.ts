@@ -1,8 +1,11 @@
 // ───────────────────────────────────────────────────────────────────────────
 // YOUR LINK-IN-BIO LINKS
 //
-// This is the one file you grow over time. Add a link by adding an object to
-// the `links` array below. Order in the array = order within its section.
+// The links themselves live in `links-data.json` (same folder) so the
+// /admin/links form can append entries via the GitHub API — each submission
+// is a commit to that file, and Vercel auto-deploys it. Adding one by hand
+// (or via Claude) still works: edit the JSON, commit, push.
+// Order in the array = order within its section.
 //
 //   { title: "What the button says",
 //     url: "https://...",
@@ -31,6 +34,8 @@
 // Or just tell Claude: "add my ring light affiliate link https://amzn.to/xyz"
 // ───────────────────────────────────────────────────────────────────────────
 
+import linksData from "./links-data.json";
+
 export type LinkCategory = "tool" | "link" | "affiliate" | "portfolio";
 
 export type BioLink = {
@@ -44,40 +49,7 @@ export type BioLink = {
   active?: boolean;
 };
 
-export const links: BioLink[] = [
-  // ── Tools ──────────────────────────────────────────────────────────────
-  {
-    title: "Ascii-cam.com",
-    url: "https://ascii-cam.com",
-    category: "tool",
-  },
-  {
-    title: "View my apps on the App Store",
-    url: "https://apps.apple.com/us/developer/erin-kerr/id1817020747",
-    category: "tool",
-    note: "Erin Kerr on the App Store",
-  },
-
-  // ── Links ──────────────────────────────────────────────────────────────
-  // (none yet — page shows a placeholder until you add one)
-
-  // ── Discount codes (affiliate) ─────────────────────────────────────────
-  // (none yet — page shows a placeholder until you add one)
-
-  // ── Portfolio ──────────────────────────────────────────────────────────
-  {
-    title: "erinkerr.me",
-    url: "https://erinkerr.me",
-    category: "portfolio",
-    note: "Portfolio",
-  },
-  {
-    title: "cybergoose.org",
-    url: "https://cybergoose.org",
-    category: "portfolio",
-    note: "Studio",
-  },
-];
+export const links: BioLink[] = linksData as BioLink[];
 
 // Sections in page order. `placeholder` = what an empty section shows; leave
 // it undefined to hide the section entirely when it has no links.
