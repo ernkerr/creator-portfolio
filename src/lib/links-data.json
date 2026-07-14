@@ -65,5 +65,11 @@
     "category": "affiliate",
     "note": "Extra 5% off with my code",
     "code": "erin5"
+  },
+  {
+    "title": "My apps",
+    "url": "https://apps.apple.com/us/developer/erin-kerr/id1817020747",
+    "category": "affiliate",
+    "note": "App Store"
   }
 ]
