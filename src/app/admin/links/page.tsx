@@ -7,8 +7,8 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SECTIONS, linksFor } from "@/lib/links";
 import { AddLinkForm } from "@/components/admin/AddLinkForm";
+import { CurrentLinks } from "@/components/admin/CurrentLinks";
 
 export const metadata: Metadata = {
   title: "Add a link",
@@ -39,39 +39,13 @@ export default function AdminLinksPage() {
           <AddLinkForm />
         </div>
 
-        {/* What's live right now (as of this deploy) */}
+        {/* What's live right now (as of this deploy), with per-link delete */}
         <div className="mt-12">
           <h2 className="text-fg font-display text-sm tracking-[0.2em] uppercase">
             Currently live
           </h2>
-          <div className="mt-3 flex flex-col gap-4">
-            {SECTIONS.map((section) => {
-              const items = linksFor(section.category);
-              return (
-                <div key={section.category}>
-                  <p className="text-fg-soft font-mono text-xs tracking-wider uppercase">
-                    {section.heading ?? "Links"}
-                  </p>
-                  {items.length > 0 ? (
-                    <ul className="mt-1 flex flex-col gap-1">
-                      {items.map((l) => (
-                        <li key={`${l.title}-${l.url}`} className="text-sm">
-                          {l.title}
-                          {l.code ? (
-                            <span className="text-accent font-mono text-xs">
-                              {" "}
-                              · {l.code}
-                            </span>
-                          ) : null}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-fg-soft/60 mt-1 text-sm italic">empty</p>
-                  )}
-                </div>
-              );
-            })}
+          <div className="mt-3">
+            <CurrentLinks />
           </div>
         </div>
       </div>
