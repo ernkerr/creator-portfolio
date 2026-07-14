@@ -36,7 +36,7 @@ export function LinkButton({ link }: { link: BioLink }) {
         <span className="flex min-w-0 flex-col">
           <span className="truncate font-medium">{link.title}</span>
           {link.note ? (
-            <span className="truncate text-sm opacity-70">{link.note}</span>
+            <span className="text-sm opacity-70">{link.note}</span>
           ) : null}
         </span>
 

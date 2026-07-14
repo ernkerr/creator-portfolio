@@ -88,6 +88,16 @@ export default function LinksPage() {
           <Socials size={24} />
         </FadeIn>
 
+        {/* ── Collab email ────────────────────────────────────────────── */}
+        <FadeIn delay={0.18} className="mt-4">
+          <a
+            href={`mailto:${site.email}`}
+            className="text-fg-soft hover:text-accent font-mono text-sm tracking-wider transition"
+          >
+            ✉︎ {site.email} · collabs
+          </a>
+        </FadeIn>
+
         {/* ── Pinned / featured links ─────────────────────────────────── */}
         {featuredLinks.length > 0 ? (
           <FadeIn delay={0.2} className="mt-8 w-full">

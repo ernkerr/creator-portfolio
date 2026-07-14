@@ -1,14 +1,51 @@
 [
   {
-    "title": "Ascii-cam.com",
-    "url": "https://ascii-cam.com",
-    "category": "tool"
+    "title": "🐾 Claude Pets",
+    "url": "https://github.com/ernkerr/claude-pets",
+    "category": "tool",
+    "note": "Desktop pets for your coding sessions"
   },
   {
-    "title": "View my apps on the App Store",
-    "url": "https://apps.apple.com/us/developer/erin-kerr/id1817020747",
+    "title": "⚑ Git Racer",
+    "url": "https://gitracer.com",
     "category": "tool",
-    "note": "Erin Kerr on the App Store"
+    "note": "Race your friends, race famous developers, and turn your GitHub contributions into a competitive sport"
+  },
+  {
+    "title": "𓁿 ASCII cam",
+    "url": "https://ascii-cam.com",
+    "category": "tool",
+    "note": "A real-time webcam to ASCII art converter"
+  },
+  {
+    "title": "♫ Group Sing Along",
+    "url": "https://groupsingalong.com",
+    "category": "tool",
+    "note": "Lyrics synced in real-time"
+  },
+  {
+    "title": "𓂜 Desk Yoga",
+    "url": "https://apps.apple.com/us/app/desk-yoga-stretch-at-work/id6759360269",
+    "category": "tool",
+    "note": "Feel better at work"
+  },
+  {
+    "title": "♥ Hearts Score Tracker",
+    "url": "https://apps.apple.com/us/app/hearts-score-tracker/id6755978632",
+    "category": "tool",
+    "note": "Replacing pen-and-paper scoring, one app at a time"
+  },
+  {
+    "title": "🂡 Gin Score Tracker",
+    "url": "https://apps.apple.com/us/app/gin-score-tracker/id6746460027",
+    "category": "tool",
+    "note": "A new way to track your Gin Rummy games"
+  },
+  {
+    "title": "✧ AutoClicker",
+    "url": "https://github.com/ernkerr/autoclicker",
+    "category": "tool",
+    "note": "Automating repetitive clicks on macOS"
   },
   {
     "title": "erinkerr.me",
