@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { site } from "@/lib/site";
 import { env } from "@/lib/env";
 import {
@@ -25,7 +26,6 @@ export const metadata: Metadata = {
   },
 };
 
-const initial = site.name.slice(0, 1);
 const handle = env.INSTAGRAM ? `@${env.INSTAGRAM}` : null;
 
 function LinkList({ items }: { items: BioLink[] }) {
@@ -50,18 +50,16 @@ export default function LinksPage() {
   return (
     <main className="bg-bg text-fg flex min-h-dvh w-full justify-center px-5 py-12 sm:py-16">
       <div className="flex w-full max-w-md flex-col items-center">
-        {/* ── Profile ─────────────────────────────────────────────────────
-            To use a real photo: drop it at /public/headshot.jpg and swap this
-            block for <Image src="/headshot.jpg" .../> (next/image). */}
+        {/* ── Profile photo (Instagram profile pic, saved locally) ─────── */}
         <FadeIn>
-          <div
-            className="from-accent/15 via-accent/5 to-bg ring-border flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br ring-1"
-            aria-hidden
-          >
-            <span className="text-accent/30 font-display text-6xl leading-none">
-              {initial}
-            </span>
-          </div>
+          <Image
+            src="/headshot.jpg"
+            alt={site.name}
+            width={224}
+            height={224}
+            priority
+            className="ring-border h-28 w-28 rounded-full object-cover ring-1"
+          />
         </FadeIn>
 
         <FadeIn delay={0.05}>
