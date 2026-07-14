@@ -1,9 +1,19 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { BioLink } from "@/lib/links";
 import { cn } from "@/lib/cn";
 import { CopyCodeChip } from "./CopyCodeChip";
 
 // One full-width button in the link-in-bio stack. Mirrors the EmailPill look
 // (rounded-full, accent border, fills accent on hover) so it feels native.
+//
+// Touch niceties: spring scale on press (framer-motion whileTap), and
+// `active:` color fills so a finger tap gives the same feedback hover gives a
+// mouse. Native tap highlight is disabled in favor of these.
+//
+// Affiliate links get rel="sponsored nofollow" per Google/FTC guidance;
+// featured links render filled (inverse) to stand out.
 //
 // A leading glyph in the title ("🐾 Claude Pets") is split into its own span:
 // spaced from the name, and suffixed with U+FE0E (text variation selector) so
@@ -14,9 +24,12 @@ function splitGlyph(title: string): [string | null, string] {
   if (!m) return [null, title];
   return [m[1].replace(/️/g, "") + "︎", m[2]];
 }
-//
-// Affiliate links get rel="sponsored nofollow" per Google/FTC guidance and a
-// small "affiliate" tag; featured links render filled (inverse) to stand out.
+
+// Tailwind needs complete class literals (no template interpolation).
+const GLYPH_ACCENT =
+  "[filter:brightness(0)_saturate(100%)_invert(9%)_sepia(96%)_saturate(7481%)_hue-rotate(247deg)_brightness(97%)_contrast(147%)] group-hover:[filter:brightness(0)_invert(1)] group-active:[filter:brightness(0)_invert(1)]";
+const GLYPH_INVERSE = "[filter:brightness(0)_invert(1)]";
+
 export function LinkButton({ link }: { link: BioLink }) {
   const isAffiliate = link.category === "affiliate";
   const isInternal = link.url.startsWith("/");
@@ -33,28 +46,29 @@ export function LinkButton({ link }: { link: BioLink }) {
 
   return (
     <li>
-      <a
+      <motion.a
         href={link.url}
         target={isInternal ? undefined : "_blank"}
         rel={rel}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.96 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }}
         className={cn(
-          "group flex w-full items-center justify-between gap-3 rounded-full border-2 px-6 py-4 transition",
+          "group flex w-full items-center justify-between gap-3 rounded-full border-2 px-6 py-4 transition-colors [-webkit-tap-highlight-color:transparent]",
           link.featured
             ? "border-accent bg-accent text-on-accent hover:opacity-90"
-            : "border-accent text-accent hover:bg-accent hover:text-on-accent",
+            : "border-accent text-accent hover:bg-accent hover:text-on-accent active:bg-accent active:text-on-accent",
         )}
       >
         <span className="flex min-w-0 flex-col">
           <span className="truncate font-medium">
             {glyph ? (
               /* Filter recolors even color-emoji glyphs (🐾) to the accent
-                 blue; flips to white on hover / featured fill. */
+                 blue; flips to white on hover / tap / featured fill. */
               <span
                 className={cn(
-                  "mr-2.5 inline-block",
-                  link.featured
-                    ? "[filter:brightness(0)_invert(1)]"
-                    : "[filter:brightness(0)_saturate(100%)_invert(9%)_sepia(96%)_saturate(7481%)_hue-rotate(247deg)_brightness(97%)_contrast(147%)] group-hover:[filter:brightness(0)_invert(1)]",
+                  "mr-4 inline-block",
+                  link.featured ? GLYPH_INVERSE : GLYPH_ACCENT,
                 )}
               >
                 {glyph}
@@ -75,17 +89,20 @@ export function LinkButton({ link }: { link: BioLink }) {
               "shrink-0 rounded-full border px-2 py-0.5 font-mono text-[0.625rem] tracking-wider uppercase",
               link.featured
                 ? "border-on-accent/40 text-on-accent"
-                : "border-accent/40 text-accent group-hover:border-on-accent/40 group-hover:text-on-accent",
+                : "border-accent/40 text-accent group-hover:border-on-accent/40 group-hover:text-on-accent group-active:border-on-accent/40 group-active:text-on-accent",
             )}
           >
             affiliate
           </span>
         ) : (
-          <span aria-hidden className="shrink-0 transition group-hover:translate-x-0.5">
+          <span
+            aria-hidden
+            className="shrink-0 transition group-hover:translate-x-0.5 group-active:translate-x-0.5"
+          >
             →
           </span>
         )}
-      </a>
+      </motion.a>
     </li>
   );
 }

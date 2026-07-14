@@ -6,8 +6,7 @@ import type { LinkCategory } from "@/lib/links";
 
 const SECTION_OPTIONS: { value: LinkCategory; label: string }[] = [
   { value: "affiliate", label: "Discount Codes" },
-  { value: "link", label: "Links" },
-  { value: "tool", label: "Tools" },
+  { value: "link", label: "Links (main list)" },
   { value: "portfolio", label: "Portfolio" },
 ];
 

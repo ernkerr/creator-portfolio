@@ -16,7 +16,7 @@ import type { BioLink, LinkCategory } from "@/lib/links";
 
 const REPO = "ernkerr/creator-portfolio";
 const FILE_PATH = "src/lib/links-data.json";
-const CATEGORIES: LinkCategory[] = ["tool", "link", "affiliate", "portfolio"];
+const CATEGORIES: LinkCategory[] = ["link", "affiliate", "portfolio"];
 const MAX_FIELD_LENGTH = 300;
 
 function githubHeaders(token: string) {

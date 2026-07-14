@@ -117,9 +117,11 @@ export default function LinksPage() {
               className="mt-10 w-full"
             >
               <section className="w-full">
-                <h2 className="text-fg font-display mb-3 text-center text-sm tracking-[0.2em] uppercase">
-                  {section.heading}
-                </h2>
+                {section.heading ? (
+                  <h2 className="text-fg font-display mb-3 text-center text-sm tracking-[0.2em] uppercase">
+                    {section.heading}
+                  </h2>
+                ) : null}
                 {section.category === "affiliate" && hasAffiliateLinks ? (
                   <p className="text-fg-soft mb-4 text-center text-xs">
                     Some links are affiliate links — I may earn a commission at

@@ -50,7 +50,7 @@ export default function AdminLinksPage() {
               return (
                 <div key={section.category}>
                   <p className="text-fg-soft font-mono text-xs tracking-wider uppercase">
-                    {section.heading}
+                    {section.heading ?? "Links"}
                   </p>
                   {items.length > 0 ? (
                     <ul className="mt-1 flex flex-col gap-1">

@@ -36,7 +36,7 @@
 
 import linksData from "./links-data.json";
 
-export type LinkCategory = "tool" | "link" | "affiliate" | "portfolio";
+export type LinkCategory = "link" | "affiliate" | "portfolio";
 
 export type BioLink = {
   title: string;
@@ -51,15 +51,16 @@ export type BioLink = {
 
 export const links: BioLink[] = linksData as BioLink[];
 
-// Sections in page order. `placeholder` = what an empty section shows; leave
-// it undefined to hide the section entirely when it has no links.
+// Sections in page order. `heading` is optional — the main links list renders
+// without a title (Erin's call: "those are just links"). `placeholder` = what
+// an empty section shows; leave it undefined to hide the section entirely
+// when it has no links.
 export const SECTIONS: {
   category: LinkCategory;
-  heading: string;
+  heading?: string;
   placeholder?: string;
 }[] = [
-  { category: "tool", heading: "Tools" },
-  { category: "link", heading: "Links", placeholder: "Coming soon" },
+  { category: "link" },
   {
     category: "affiliate",
     heading: "Discount Codes",
