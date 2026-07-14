@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import type { BioLink } from "@/lib/links";
 import { cn } from "@/lib/cn";
@@ -35,6 +36,32 @@ export function LinkButton({ link }: { link: BioLink }) {
   const isInternal = link.url.startsWith("/");
   const [glyph, titleText] = splitGlyph(link.title);
 
+  // Mobile "slot machine": no hover on touch screens, so instead a button
+  // lights up (same fill as hover) while it passes through a band around the
+  // viewport center — scrolling runs the highlight down the stack. Same
+  // touch-detection pattern as BrandVideo's autoplay.
+  const ref = useRef<HTMLAnchorElement>(null);
+  const [lit, setLit] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const isTouch = window.matchMedia("(hover: none)").matches;
+    if (!isTouch) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) setLit(entry.isIntersecting);
+      },
+      // Narrow band around the viewport center + a chunk of the button must
+      // be inside it — keeps the highlight to ~one button at a time.
+      { rootMargin: "-44% 0px -44% 0px", threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const filled = link.featured || lit;
+
   const rel = isInternal
     ? undefined
     : cn(
@@ -47,6 +74,7 @@ export function LinkButton({ link }: { link: BioLink }) {
   return (
     <li>
       <motion.a
+        ref={ref}
         href={link.url}
         target={isInternal ? undefined : "_blank"}
         rel={rel}
@@ -54,10 +82,12 @@ export function LinkButton({ link }: { link: BioLink }) {
         whileTap={{ scale: 0.96 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
         className={cn(
-          "group flex w-full items-center justify-between gap-3 rounded-full border-2 px-6 py-4 transition-colors [-webkit-tap-highlight-color:transparent]",
+          "group flex w-full items-center justify-between gap-3 rounded-full border-2 px-6 py-4 transition-colors duration-300 [-webkit-tap-highlight-color:transparent]",
           link.featured
             ? "border-accent bg-accent text-on-accent hover:opacity-90"
-            : "border-accent text-accent hover:bg-accent hover:text-on-accent active:bg-accent active:text-on-accent",
+            : lit
+              ? "border-accent bg-accent text-on-accent"
+              : "border-accent text-accent hover:bg-accent hover:text-on-accent active:bg-accent active:text-on-accent",
         )}
       >
         <span className="flex min-w-0 flex-col">
@@ -68,7 +98,7 @@ export function LinkButton({ link }: { link: BioLink }) {
               <span
                 className={cn(
                   "mr-4 inline-block",
-                  link.featured ? GLYPH_INVERSE : GLYPH_ACCENT,
+                  filled ? GLYPH_INVERSE : GLYPH_ACCENT,
                 )}
               >
                 {glyph}
@@ -82,12 +112,12 @@ export function LinkButton({ link }: { link: BioLink }) {
         </span>
 
         {link.code ? (
-          <CopyCodeChip code={link.code} featured={link.featured} />
+          <CopyCodeChip code={link.code} featured={filled} />
         ) : isAffiliate ? (
           <span
             className={cn(
               "shrink-0 rounded-full border px-2 py-0.5 font-mono text-[0.625rem] tracking-wider uppercase",
-              link.featured
+              filled
                 ? "border-on-accent/40 text-on-accent"
                 : "border-accent/40 text-accent group-hover:border-on-accent/40 group-hover:text-on-accent group-active:border-on-accent/40 group-active:text-on-accent",
             )}
