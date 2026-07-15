@@ -21,10 +21,9 @@ ${site.description}
 ${socials}
 
 ## Pages
-- ${site.url}/#home — Hero / overview
-- ${site.url}/#work — Selected brand work
-- ${site.url}/#about — About / background
-- ${site.url}/#contact — Get in touch
+- ${site.url}/ — Home: hero, selected brand work, about, and contact
+- ${site.url}/tools — Creator workflow tools (waitlist)
+- ${site.url}/links — Links: tools, picks, and socials
 `;
 
   return new Response(body, {
