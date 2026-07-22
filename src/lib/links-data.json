@@ -60,17 +60,17 @@
     "note": "Studio"
   },
   {
+    "title": "My apps",
+    "url": "https://apps.apple.com/us/developer/erin-kerr/id1817020747",
+    "category": "portfolio",
+    "note": "App Store"
+  },
+  {
     "title": "SOTSU Monitor: 10% off",
     "url": "https://www.sotsu.com/?ref=kywabftb",
     "category": "affiliate",
     "note": "Extra percentage off with my code",
     "code": "erin5"
-  },
-  {
-    "title": "My apps",
-    "url": "https://apps.apple.com/us/developer/erin-kerr/id1817020747",
-    "category": "affiliate",
-    "note": "App Store"
   },
   {
     "title": "Keychron: 5% off",
